@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Genres List</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col" layout:fragment="content">
+            <div class="row">
+                <div class="col">
+                    <h1>Genres List</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <a th:href="@{/genres/add}" class="btn btn-primary btn-sm mb-3"> Add Genre </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <table class="table table-striped table-responsive-md">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Edit</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="genre : ${genres}">
+
+                            <td><a th:href="@{/genres/{genreId}(genreId=${genre.id})}" th:utext="${genre.id}">...</a>
+                            </td>
+                            <td><a th:href="@{/genres/{genreId}(genreId=${genre.id})}" th:utext="${genre.name}">...</a>
+                            </td>
+                            <td>
+                                <a th:href="@{/genres/{genreId}/edit(genreId=${genre.id})}"
+                                   class="btn btn-primary">Edit</a>
+                                <a th:href="@{/genres/{genreId}/delete(genreId=${genre.id})}" class="btn btn-primary">Delete</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <nobr>
+                        <span th:if="${hasPrev}"><a th:href="@{/genres?page={prev}(prev=${prev})}">Prev</a>&nbsp;&nbsp;&nbsp;</span>
+                        <span th:if="${hasNext}"><a th:href="@{/genres?page={next}(next=${next})}">Next</a></span>
+                    </nobr>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

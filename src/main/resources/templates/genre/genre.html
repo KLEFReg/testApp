@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Welcome</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col" layout:fragment="content">
+            <h1>View Genre</h1>
+            <a th:href="@{/genres}">Back to Genre List</a>
+            <br/><br/>
+            <div th:if="${genre}">
+                <table border="0">
+                    <tr>
+                        <td>ID</td>
+                        <td>:</td>
+                        <td th:utext="${genre.id}">...</td>
+                    </tr>
+                    <tr>
+                        <td>Name</td>
+                        <td>:</td>
+                        <td th:utext="${genre.name}">...</td>
+                    </tr>
+                </table>
+                <br/><br/>
+                <div th:if="not ${allowDelete}">
+                    <a th:href="@{/genres/{genreId}/edit(genreId=${genre.id})}">Edit</a> |
+                    <a th:href="@{/genres/{genreId}/delete(genreId=${genre.id})}">Delete</a>
+                </div>
+                <form th:if="${allowDelete}" th:action="@{/genres/{genreId}/delete(genreId=${genre.id})}" method="POST">
+                    Delete this genre? <input type="submit" th:value="Yes"/>
+                </form>
+            </div>
+            <div th:if="${errorMessage}" th:utext="${errorMessage}" class="error"/>
+        </div>
+    </div>
+</div>
+</body>
+</html>

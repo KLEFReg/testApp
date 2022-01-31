@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="${add} ? 'Create a Genre' : 'Edit a Genre'" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col" layout:fragment="content">
+            <h1 th:text="${add} ? 'Create a Genre:' : 'Edit a Genre:'" />
+            <a th:href="@{/genres}">Back to Genre List</a>
+            <br/><br/>
+            <form th:action="${add} ? @{/genres/add} : @{/genres/{genreId}/edit(genreId=${genre.id})}"
+                  th:object="${genre}" method="POST">
+                <table border="0">
+                    <tr th:if="${genre.id}">
+                        <td>ID</td>
+                        <td>:</td>
+                        <td th:utext="${genre.id}">...</td>
+                    </tr>
+                    <tr>
+                        <td>Name</td>
+                        <td>:</td>
+                        <td><input type="text" th:field="*{name}" /></td>
+                    </tr>
+
+                </table>
+                <input type="submit" th:value="${add} ? 'Create' : 'Update'" />
+            </form>
+
+            <br/>
+            <!-- Check if errorMessage is not null and not empty -->
+            <div th:if="${errorMessage}" th:utext="${errorMessage}" class="error" />
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layout}">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Welcome</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col" layout:fragment="content">
+      <h1>Create a Book:</h1>
+
+      <form th:action="@{/addBook}"
+            th:object="${bookForm}" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <p>Title:
+            <input type="text" th:field="*{title}" />
+        </div>
+        <div class="form-group">
+          <p>Description:</p>
+          <input type="text" th:field="*{description}" />
+        </div>
+        <div class="form-group">
+          <p>Description:</p>
+          <input type="file"   th:field="*{coverFile}"}/>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create</button>
+      </form>
+
+      <div th:if="${errorMessage}" th:utext="${errorMessage}"
+           style="color:red;font-style:italic;">
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+
+
+
+
+
